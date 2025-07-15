@@ -20,11 +20,10 @@ class SpriteSnake(arcade.Sprite):
         self.change_x = SNAKE_SPEED
         self.where_snake_fasing = 2
         self.Spawn()
+
     def Spawn(self):
         self.center_x = self.cord_x*SQUARE_SCALE+SQUARE_SCALE/2
         self.center_y = self.cord_y*SQUARE_SCALE+SQUARE_SCALE/2
-
-
 
     def WhereSnakeFasing(self):
         if self.where_snake_fasing == 1:
@@ -35,6 +34,7 @@ class SpriteSnake(arcade.Sprite):
             self.angle = -90
         if self.where_snake_fasing == 4:
             self.angle = 0
+
     def SnakeLogic(self):
         self.center_x += self.change_x
         self.center_y += self.change_y
@@ -99,40 +99,41 @@ class MyGame(arcade.Window):
         arcade.draw_sprite(self.snakehead)
         arcade.draw_sprite(self.apple)
 
-    def on_update(self, delta_time):
-        if not self.Pause:
-            self.snakehead.SnakeLogic()
-            if arcade.check_for_collision(self.snakehead,self.apple):
-                self.apple.respawn()
-            if self.snakehead.right >= SCREEN_WIDTH or self.snakehead.top >= SCREEN_HEIGHT or self.snakehead.left <= 0 or self.snakehead.bottom <= 0:
-                self.Pause = True
-                print("you lose")
-            if self.wheretoturn == 1:
-                print('ВОРКАЕМ =))))')
-                print('Snake X: ',self.snakehead.center_x, 'Center:', SQUARE_SCALE/2, 'Result', self.snakehead.change_x%SQUARE_SCALE/2)
-                if int(self.snakehead.center_x) % SQUARE_SCALE//2 == 0:
-                    self.snakehead.change_x = 0
-                    self.snakehead.change_y = SNAKE_SPEED
-                    self.snakehead.where_snake_fasing = 1
-                    self.wheretoturn = 0
-            elif self.wheretoturn == 2:
-                if int(self.snakehead.center_x) % SQUARE_SCALE//2 == 0:
-                    self.snakehead.change_x = 0
-                    self.snakehead.change_y = SNAKE_SPEED
-                    self.snakehead.where_snake_fasing = 2
-                    self.wheretoturn = 0
-            elif self.wheretoturn == 3:
-                if int(self.snakehead.center_x) % SQUARE_SCALE//2 == 0:
-                    self.snakehead.change_x = 0
-                    self.snakehead.change_y = SNAKE_SPEED
-                    self.snakehead.where_snake_fasing = 3
-                    self.wheretoturn = 0
-            elif self.wheretoturn == 4:
-                if int(self.snakehead.center_x) % SQUARE_SCALE//2 == 0:
-                    self.snakehead.change_x = 0
-                    self.snakehead.change_y = SNAKE_SPEED
-                    self.snakehead.where_snake_fasing = 4
-                    self.wheretoturn = 0
+    # def on_update(self, delta_time):
+    #     if not self.Pause:
+    #         self.snakehead.SnakeLogic()
+    #         if arcade.check_for_collision(self.snakehead,self.apple):
+    #             self.apple.respawn()
+    #
+    #         if self.snakehead.right >= SCREEN_WIDTH or self.snakehead.top >= SCREEN_HEIGHT or self.snakehead.left <= 0 or self.snakehead.bottom <= 0:
+    #             self.Pause = True
+    #             print("you lose")
+    #
+    #
+    #         if self.wheretoturn == 1:   # верх
+    #             if int(self.snakehead.center_x) % (SQUARE_SCALE//2) == 0:
+    #                 self.snakehead.change_x = 0
+    #                 self.snakehead.change_y = SNAKE_SPEED
+    #                 self.snakehead.where_snake_fasing = 1
+    #                 self.wheretoturn = 0
+    #         elif self.wheretoturn == 2: # вправо
+    #             if int(self.snakehead.center_y) % (SQUARE_SCALE//2) == 0:
+    #                 self.snakehead.change_x = SNAKE_SPEED
+    #                 self.snakehead.change_y = 0
+    #                 self.snakehead.where_snake_fasing = 2
+    #                 self.wheretoturn = 0
+    #         elif self.wheretoturn == 3: # вниз
+    #             if int(self.snakehead.center_x) % (SQUARE_SCALE//2) == 0:
+    #                 self.snakehead.change_x = 0
+    #                 self.snakehead.change_y = -SNAKE_SPEED
+    #                 self.snakehead.where_snake_fasing = 3
+    #                 self.wheretoturn = 0
+    #         elif self.wheretoturn == 4: # влево
+    #             if int(self.snakehead.center_y) % (SQUARE_SCALE//2) == 0:
+    #                 self.snakehead.change_x = -SNAKE_SPEED
+    #                 self.snakehead.change_y = 0
+    #                 self.snakehead.where_snake_fasing = 4
+    #                 self.wheretoturn = 0
 
 
 
@@ -168,5 +169,3 @@ if __name__ == "__main__":
     game = MyGame()
     game.setup()
     arcade.run()
-
-
